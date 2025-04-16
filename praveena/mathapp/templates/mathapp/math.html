@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWER</title> 
+    <style>
+        form{
+    background-color: bisque;
+        }
+    h1{
+    font-style: italic;
+    }
+    body{
+    background-color: rgb(115, 115, 173);
+    }
+    input{
+        background-color: rgb(162, 191, 234);
+    }
+    button{
+        background-color: rgb(159, 23, 23);
+    }
+    p{
+        font-size: x-large;
+    }
+    </style>
+</head>
+<body>
+    <h1 align="center">CALCULATING POWER OF A LAMP</h1>
+    <form action="{% url 'home' %}" method="POST">
+        {% csrf_token %}
+        intensity:
+        <input type="text" name="intensity-input"> <br>
+        resistance:
+        <input type="text" name="resistance-input"> <br>
+        <button type="submit">calculate</button>
+        <p align="center">power of the lamp is:{{output}}</p>
+    </form>
+    
+</body>
+</html>
