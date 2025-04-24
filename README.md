@@ -36,7 +36,7 @@ math.html
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POWER</title> 
+    <title>Document</title>
     <style>
         form{
     background-color: bisque;
@@ -56,11 +56,14 @@ math.html
     p{
         font-size: x-large;
     }
+    form{
+        font-size=xx-large;
+    }
     </style>
 </head>
 <body>
     <h1 align="center">CALCULATING POWER OF A LAMP</h1>
-    <form action="{% url 'home' %}" method="POST">
+    <form action="{% url 'home' %}" method="post">
         {% csrf_token %}
         intensity:
         <input type="text" name="intensity-input"> <br>
@@ -77,13 +80,23 @@ views.py
 ```
 from django.shortcuts import render
 def power(request):
-    if request.method=="POST":
-        intensity=int(request.POST.get('intensity-input'))
-        resistance=int(request.POST.get('resistance-input'))
-        power=(intensity**2)*resistance
-        return render(request,'math.html',{'output':power})
-    return render(request,'mathapp/math.html')
-
+    context={}
+    context['power']="0"
+    context['intensity_value']="0"
+    context['resistance_value']="0"
+    if request.method == 'POST':
+        intensity_value = int(request.POST.get('intensity-input'))
+        resistance_value = int(request.POST.get('resistance-input'))
+        print('request=',request)
+        print('intesity=',intensity_value)
+        print('resistance=',resistance_value)
+        power = (intensity_value ** 2)*resistance_value
+        context['power']=power
+        context['intensity_value']=intensity_value
+        context['resistance_value']=resistance_value
+        print('output=',power)
+        return render (request, 'mathapp/math.html', {'output':power})
+    return render(request,'mathapp/math.html',context)
 ```
 urls.py
 ```
@@ -97,7 +110,10 @@ urlpatterns = [
 ]
 ```
 # SERVER SIDE PROCESSING:
+![alt text](<praveena/mathapp/templates/mathapp/Screenshot 2025-04-24 213641.png>)
 # HOMEPAGE:
-![alt text](<Screenshot 2025-04-16 064854.png>)
+![alt text](<praveena/mathapp/templates/mathapp/Screenshot 2025-04-24 213618.png>)
+![alt text](<praveena/mathapp/templates/mathapp/Screenshot 2025-04-24 213627.png>)
+
 # RESULT:
 The program for performing server side processing is completed successfully.
